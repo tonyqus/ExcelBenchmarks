@@ -1,5 +1,6 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 using ExcelPRIME;
+using IronXL;
 using MiniExcelLibs;
 using OfficeOpenXml;
 using Sylvan.Data.Excel;
@@ -13,7 +14,6 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Xml;
-using NPOI.SS.UserModel;
 
 namespace Benchmarks;
 
@@ -22,6 +22,11 @@ namespace Benchmarks;
 public class XlsxReaderBenchmarks
 {
 	const string file = @"Data/65K_Records_Data.xlsx";
+
+	static XlsxReaderBenchmarks()
+	{
+		IronXL.License.LicenseKey = "IRONSUITE.TONYQUS.GMAIL.COM.22040-43741EB9AC-HRMLL-QK4R6SHHUR3J-OSUL6VLXHIF6-QOQGVKD3YBOX-UEQH7DDLANSJ-FM4V2XBZLVX7-CXLRH5U2T4TJ-D42QO7-TWXG54YZ7AKREA-DEPLOYMENT.TRIAL-NRODM5.TRIAL.EXPIRES.24.APR.2026";
+	}
 
 	public XlsxReaderBenchmarks()
 	{
@@ -415,5 +420,36 @@ public class XlsxReaderBenchmarks
 				row.Dispose();
 			}
 		}
+	}
+
+	static void ProcessIronXLRecord(RangeRow row, int rowIndex)
+	{
+		var region = row.Columns[0].StringValue;
+		var country = row.Columns[1].StringValue;
+		var type = row.Columns[2].StringValue;
+		var channel = row.Columns[3].StringValue;
+		var priority = row.Columns[4].StringValue;
+		var orderDate = row.Columns[5].DateTimeValue;
+		var id = row.Columns[6].IntValue;
+		var shipDate = row.Columns[7].DateTimeValue;
+		var unitsSold = row.Columns[8].IntValue;
+		var unitPrice = row.Columns[9].DecimalValue;
+		var unitCost = row.Columns[10].DecimalValue;
+		var totalRevenue = row.Columns[11].DecimalValue;
+		var totalCost = row.Columns[12].DecimalValue;
+		var totalProfit = row.Columns[13].DecimalValue;
+	}
+
+	[Benchmark]
+	public void IronXLXlsx()
+	{
+		var workbook = WorkBook.Load(file);
+		var sheet = workbook.WorkSheets[0];
+		for (int rowIndex = 2; rowIndex <= sheet.RowCount; rowIndex++)
+		{
+			var row=sheet.GetRow(rowIndex);
+			ProcessIronXLRecord(row, rowIndex);
+		}
+		workbook.Close();
 	}
 }

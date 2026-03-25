@@ -2,6 +2,7 @@
 using BenchmarkDotNet.Attributes;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using IronXL;
 using MiniExcelLibs;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.Streaming;
@@ -21,6 +22,11 @@ namespace Benchmarks;
 public class ExcelWriterBenchmarks
 {
 	const string file = @"Data/65K_Records_Data.csv";
+
+	static ExcelWriterBenchmarks()
+	{
+		IronXL.License.LicenseKey = "IRONSUITE.TONYQUS.GMAIL.COM.22040-43741EB9AC-HRMLL-QK4R6SHHUR3J-OSUL6VLXHIF6-QOQGVKD3YBOX-UEQH7DDLANSJ-FM4V2XBZLVX7-CXLRH5U2T4TJ-D42QO7-TWXG54YZ7AKREA-DEPLOYMENT.TRIAL-NRODM5.TRIAL.EXPIRES.24.APR.2026";
+	}
 
 	MemoryStream ms;
 
@@ -493,5 +499,60 @@ public class ExcelWriterBenchmarks
 
 			spreadSheet.WorkbookPart.Workbook.Save();
 		}
+	}
+
+	[Benchmark]
+	public void IronXLXlsx()
+	{
+		WriteIronXL(GetData());
+	}
+
+	void WriteIronXL(DbDataReader reader)
+	{
+		using var ns = GetStream();
+		var workbook = WorkBook.Create(ExcelFileFormat.XLSX);
+		var sheet = workbook.CreateWorkSheet("Sheet1");
+
+		int rowIdx = 1;
+		for (int i = 0; i < reader.FieldCount; i++)
+		{
+			sheet.SetCellValue(0, i, reader.GetName(i));
+		}
+
+		rowIdx++;
+		while (reader.Read())
+		{
+			for (int i = 0; i < reader.FieldCount; i++)
+			{
+				var t = reader.GetFieldType(i);
+				var c = Type.GetTypeCode(t);
+
+				switch (c)
+				{
+					case TypeCode.DateTime:
+						sheet.SetCellValue(rowIdx - 1, i, reader.GetDateTime(i));
+						break;
+					case TypeCode.Int32:
+						sheet.SetCellValue(rowIdx - 1, i, reader.GetInt32(i));
+						break;
+					case TypeCode.Double:
+						sheet.SetCellValue(rowIdx - 1, i, reader.GetDouble(i));
+						break;
+					case TypeCode.String:
+						sheet.SetCellValue(rowIdx - 1, i, reader.GetString(i));
+						break;
+					case TypeCode.Decimal:
+						sheet.SetCellValue(rowIdx - 1, i, (double)reader.GetDecimal(i));
+						break;
+					default:
+						throw new Exception();
+				}
+			}
+
+			rowIdx++;
+		}
+		var ms = workbook.ToStream();
+		ms.CopyTo(ns);
+		workbook.Close();
 	}
 }
