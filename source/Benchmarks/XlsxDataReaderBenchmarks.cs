@@ -14,6 +14,7 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Xml;
+using IronXL.Options;
 
 namespace Benchmarks;
 
@@ -422,34 +423,22 @@ public class XlsxReaderBenchmarks
 		}
 	}
 
-	static void ProcessIronXLRecord(RangeRow row, int rowIndex)
-	{
-		var region = row.Columns[0].StringValue;
-		var country = row.Columns[1].StringValue;
-		var type = row.Columns[2].StringValue;
-		var channel = row.Columns[3].StringValue;
-		var priority = row.Columns[4].StringValue;
-		var orderDate = row.Columns[5].DateTimeValue;
-		var id = row.Columns[6].IntValue;
-		var shipDate = row.Columns[7].DateTimeValue;
-		var unitsSold = row.Columns[8].IntValue;
-		var unitPrice = row.Columns[9].DecimalValue;
-		var unitCost = row.Columns[10].DecimalValue;
-		var totalRevenue = row.Columns[11].DecimalValue;
-		var totalCost = row.Columns[12].DecimalValue;
-		var totalProfit = row.Columns[13].DecimalValue;
-	}
-
 	[Benchmark]
 	public void IronXLXlsx()
 	{
-		var workbook = WorkBook.Load(file);
-		var sheet = workbook.WorkSheets[0];
-		for (int rowIndex = 2; rowIndex <= sheet.RowCount; rowIndex++)
+		using (var stream = File.OpenRead(file))
 		{
-			var row=sheet.GetRow(rowIndex);
-			ProcessIronXLRecord(row, rowIndex);
+			var workbook = WorkBook.Load(stream);
+			var sheet = workbook.WorkSheets[0];
+			foreach (var row in sheet.Rows)
+			{
+				foreach(var col in row.Columns)
+				{
+					var value = col.Value;
+				}
+			}
+
+			workbook.Close();
 		}
-		workbook.Close();
 	}
 }
