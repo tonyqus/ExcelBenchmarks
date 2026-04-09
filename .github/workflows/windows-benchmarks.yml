@@ -2,6 +2,8 @@ name: Windows Benchmarks
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [run-windows-benchmarks]
 
 jobs:
   benchmark:
