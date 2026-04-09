@@ -2,17 +2,17 @@
 
 These benchmarks measure writing a 65k row Excel file, with data read from in-memory objects.
 
-| Method              | Mean        | Error     | Allocated     |
-|-------------------- |------------:|----------:|--------------:|
-| SylvanXlsb          |    46.03 ms |  0.773 ms |     111.19 KB |
-| SylvanXlsx          |    69.46 ms |  1.211 ms |      165.8 KB |
-| LargeXlsx           |    92.45 ms |  2.173 ms |     136.07 KB |
-| MiniXl              |   187.48 ms |  5.299 ms |  333634.53 KB |
-| SwiftExcelXlsx      |   299.97 ms |  2.572 ms |  101921.76 KB |
-| AsposeXlsx          |   569.09 ms |  7.782 ms |  248143.48 KB |
-| AsposeXlsb          |   593.43 ms |  8.379 ms |   308156.8 KB |
-| OpenXmlXlsx         |   990.82 ms | 20.935 ms |  541553.01 KB |
-| NanoXlsxWrite       | 1,080.34 ms | 20.613 ms | 1414844.21 KB |
-| EPPlusViaDataReader | 1,412.21 ms | 14.683 ms |  400815.04 KB |
-| EPPlusXlsx          | 1,521.88 ms | 22.968 ms |  643065.62 KB |
-| NpoiXlsx            | 2,098.84 ms | 34.782 ms | 1135254.88 KB |
+| Method              | Mean        | Error      | Allocated     |
+|-------------------- |------------:|-----------:|--------------:|
+| SylvanXlsb          |    92.84 ms |   1.235 ms |     111.91 KB |
+| SylvanXlsx          |   143.39 ms |   4.858 ms |     166.39 KB |
+| LargeXlsx           |   193.02 ms |   4.443 ms |     137.63 KB |
+| MiniXl              |   414.53 ms |  10.120 ms |  333641.86 KB |
+| SwiftExcelXlsx      |   568.39 ms |   7.416 ms |  102040.44 KB |
+| AsposeXlsx          | 1,160.77 ms |  38.183 ms |  248160.12 KB |
+| AsposeXlsb          | 1,230.24 ms |  41.113 ms |  308161.17 KB |
+| NpoiXlsx            | 1,483.17 ms |  24.820 ms |  579803.96 KB |
+| OpenXmlXlsx         | 2,341.92 ms |  38.572 ms |  713594.19 KB |
+| EPPlusViaDataReader | 2,611.41 ms |  41.326 ms |   400648.2 KB |
+| EPPlusXlsx          | 2,850.94 ms |  30.791 ms |  642897.56 KB |
+| NanoXlsxWrite       | 5,236.35 ms | 347.982 ms | 1995813.94 KB |

@@ -25,39 +25,36 @@ It represents the minimal work that must be done assuming those classes are used
 
 | Method                | Mean       | Error    | Ratio | Allocated     | Alloc Ratio |
 |---------------------- |-----------:|---------:|------:|--------------:|------------:|
-| Baseline              |   112.1 ms | 11.55 ms |  1.00 |      246.7 KB |        1.00 |
-| SylvanXlsx            |   166.5 ms |  3.02 ms |  1.49 |     665.93 KB |        2.70 |
-| SylvanXlsx_BindT      |   167.8 ms |  2.14 ms |  1.50 |   10906.74 KB |       44.21 |
-| SylvanXlsxDynamic     |   172.7 ms |  3.01 ms |  1.54 |   14474.39 KB |       58.67 |
-| PrimeXlsx             |   182.9 ms |  3.07 ms |  1.63 |   83860.22 KB |      339.93 |
-| XlsxHelperXlsx        |   202.4 ms |  4.00 ms |  1.81 |   93306.34 KB |      378.23 |
-| HypeLabXlsx_SheetData |   241.4 ms |  8.91 ms |  2.15 |   85184.43 KB |      345.30 |
-| AsposeXlsx            |   305.7 ms | 19.85 ms |  2.73 |  209866.15 KB |      850.71 |
-| MiniExcelXlsx         |   407.4 ms |  7.91 ms |  3.64 |  648458.91 KB |    2,628.58 |
-| Lightweight           |   410.3 ms | 29.93 ms |  3.66 |  167950.77 KB |      680.80 |
-| ExcelDataReaderXlsx   |   430.3 ms |  8.01 ms |  3.84 |  267931.42 KB |    1,086.08 |
-| EPPlusXlsx            |   652.2 ms | 11.09 ms |  5.82 |  423878.02 KB |    1,718.22 |
-| AceOleDbXls           |   693.0 ms | 11.21 ms |  6.19 |    27037.6 KB |      109.60 |
-| ClosedXmlXlsx         | 1,059.4 ms | 16.31 ms |  9.46 |  727575.88 KB |    2,949.29 |
-| FastExcelXlsx         | 1,170.3 ms | 45.03 ms | 10.45 | 1189985.66 KB |    4,823.71 |
-| NpoiXlsx              | 1,688.9 ms | 29.66 ms | 15.08 | 1288175.14 KB |    5,221.73 |
+| Baseline              |   221.1 ms |  3.69 ms |  1.00 |      252.8 KB |        1.00 |
+| SylvanXlsx            |   336.4 ms |  3.94 ms |  1.52 |     670.14 KB |        2.65 |
+| SylvanXlsx_BindT      |   346.9 ms | 12.55 ms |  1.57 |   10916.23 KB |       43.18 |
+| SylvanXlsxDynamic     |   355.3 ms |  9.08 ms |  1.61 |   14469.57 KB |       57.25 |
+| PrimeXlsx             |   387.2 ms |  7.10 ms |  1.75 |  83870.22 KB |      331.83 |
+| XlsxHelperXlsx        |   430.9 ms | 11.89 ms |  1.95 |  93289.43 KB |      369.10 |
+| HypeLabXlsx_SheetData |   468.5 ms | 33.49 ms |  2.12 |  85215.17 KB |      337.17 |
+| AsposeXlsx            |   619.0 ms | 13.69 ms |  2.80 |  209861.9 KB |      830.40 |
+| MiniExcelXlsx         |   857.3 ms | 17.08 ms |  3.88 |  648451.5 KB |    2,565.88 |
+| ExcelDataReaderXlsx   |   881.9 ms | 17.27 ms |  3.99 |  267932.2 KB |    1,060.19 |
+| Lightweight           | 1,033.2 ms | 14.98 ms |  4.67 |  168004.8 KB |      664.73 |
+| EPPlusXlsx            | 1,288.3 ms | 18.40 ms |  5.83 |  423875.4 KB |    1,676.98 |
+| ClosedXmlXlsx         | 2,082.8 ms | 29.75 ms |  9.42 |  727572.8 KB |    2,878.78 |
+| FastExcelXlsx         | 2,407.3 ms | 41.89 ms | 10.89 | 1189954.5 KB |    4,708.18 |
+| NpoiXlsx              | 2,898.2 ms | 50.72 ms | 13.11 | 1288167.2 KB |    5,096.88 |
 
 ## Excel .xlsb Benchmarks
 
 | Method              | Mean        | Error     | Ratio  | Allocated    | Alloc Ratio |
 |-------------------- |------------:|----------:|-------:|-------------:|------------:|
-| SylvanXlsb          |    24.82 ms |  0.327 ms |   1.00 |    358.93 KB |        1.00 |
-| PrimeXlsb           |    60.73 ms |  0.961 ms |   2.45 | 129839.36 KB |      361.74 |
-| ExcelDataReaderXlsb |   138.58 ms |  3.805 ms |   5.58 | 150655.65 KB |      419.74 |
-| AsposeXlsb          |   226.25 ms |  3.101 ms |   9.12 | 247968.29 KB |      690.86 |
-| AceOleDbXlsb        | 3,359.50 ms | 30.683 ms | 135.36 |  27035.96 KB |       75.32 |
+| SylvanXlsb          |    43.33 ms |  0.374 ms |   1.00 |    359.17 KB |        1.00 |
+| PrimeXlsb           |   125.54 ms |  2.743 ms |   2.90 | 129818.72 KB |      361.44 |
+| ExcelDataReaderXlsb |   239.01 ms |  2.888 ms |   5.52 | 150656.36 KB |      419.46 |
+| AsposeXlsb          |   419.33 ms |  8.348 ms |   9.68 | 247976.12 KB |      690.42 |
 
 ## Excel .xls Benchmarks
 
 | Method             | Mean      | Error     | Ratio | Allocated    | Alloc Ratio |
 |------------------- |----------:|----------:|------:|-------------:|------------:|
-| SylvanXls          |  16.35 ms |  0.273 ms |  1.00 |    190.35 KB |        1.00 |
-| ExcelDataReaderXls | 110.82 ms |  5.002 ms |  6.78 | 237569.13 KB |    1,248.07 |
-| AceOleDbXls        | 204.81 ms |  3.460 ms | 12.53 |  27033.59 KB |      142.02 |
-| AsposeXls          | 213.70 ms | 15.953 ms | 13.07 | 252014.51 KB |    1,323.96 |
-| NpoiXls            | 667.76 ms | 28.481 ms | 40.85 |  720789.6 KB |    3,786.66 |
+| SylvanXls          |  27.48 ms |  0.377 ms |  1.00 |    190.51 KB |        1.00 |
+| ExcelDataReaderXls | 226.76 ms |  2.813 ms |  8.25 | 237573.23 KB |    1,247.01 |
+| AsposeXls          | 368.71 ms | 32.568 ms | 13.42 | 252021.59 KB |    1,322.85 |
+| NpoiXls            | 988.64 ms | 60.718 ms | 35.98 | 657435.26 KB |    3,450.86 |
