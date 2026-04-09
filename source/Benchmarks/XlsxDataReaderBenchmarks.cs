@@ -429,12 +429,17 @@ public class XlsxReaderBenchmarks
 		using (var stream = File.OpenRead(file))
 		{
 			var workbook = WorkBook.Load(stream);
+
 			var sheet = workbook.WorkSheets[0];
-			foreach (var row in sheet.Rows)
+			var rc = sheet.RowCount;
+			var cc = sheet.ColumnCount;
+
+			for (int i = 0; i <rc; i++)
 			{
-				foreach(var col in row.Columns)
+				for (int j = 0; j < cc; j++)
 				{
-					var value = col.Value;
+					var cell = sheet.GetCellAt(i, j);
+					var value = cell?.Value;
 				}
 			}
 
