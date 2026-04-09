@@ -1,0 +1,40 @@
+name: Windows Benchmarks
+
+on:
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install ACE Provider
+        run: |
+          # Download and install Microsoft Access Database Engine 2010 Redistributable
+          # This provides the ACE OLE DB 12.0 provider
+          $ProgressPreference = 'SilentlyContinue'
+          Invoke-WebRequest -Uri "https://download.microsoft.com/download/2/4/3/24375141-E08D-4803AB0B-5C9FB8E7CBBB/AccessDatabaseEngine.exe" -OutFile AccessDatabaseEngine.exe
+          Start-Process -FilePath ".\AccessDatabaseEngine.exe" -ArgumentList "/quiet", "/passive" -Wait
+          Remove-Item AccessDatabaseEngine.exe
+
+      - name: Build
+        run: dotnet build -c Release source/Benchmarks.sln
+
+      - name: Run Benchmarks
+        run: |
+          dotnet run --project source/Benchmarks -c Release -- --iterationTime 1000
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: |
+            BenchmarkDotNet.Artifacts/**
+            docs/**
